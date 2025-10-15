@@ -7,7 +7,13 @@ const app = express();
 // ✅ CORS AYARLARI
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || /^http:\/\/localhost:\d+$/.test(origin)) {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://sosyal.kamerkoleji.com'
+    ];
+    
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('CORS engellendi'));
@@ -133,4 +139,5 @@ app.listen(PORT, () => {
   console.log(`🔗 Mutlucell: https://smsgw.mutlucell.com/smsgw-ws/sndblkex`);
   console.log('⏰ Başlatma:', new Date().toLocaleString('tr-TR'));
   console.log('═══════════════════════════════════════\n');
+
 });
